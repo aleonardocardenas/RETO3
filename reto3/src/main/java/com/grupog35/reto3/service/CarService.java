@@ -12,13 +12,16 @@ public class CarService {
 
     @Autowired
     CarRepository carRepository;
+
     public List<CarModel> obtener(){
         return carRepository.findAll();
     }
+
     public void crear(CarModel car){
-        if(!carRepository.existsById(car.getId())){
+        System.out.println(car.toString());
+        if(!carRepository.existsById(car.getIdCar())){
             carRepository.save(car);
         }
-
     }
+
 }

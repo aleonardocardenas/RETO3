@@ -12,13 +12,15 @@ public class ClientService {
 
     @Autowired
     ClientRepository clientRepository;
+
     public List<ClientModel> obtener(){
         return clientRepository.findAll();
     }
-    public void crear(ClientModel client){
-        if(!clientRepository.existsById(client.getId())){
-            clientRepository.save(client);
-        }
 
+    public void crear(ClientModel model){
+        if(!clientRepository.existsById(model.getIdClient())){
+            clientRepository.save(model);
+        }
     }
+
 }

@@ -14,13 +14,15 @@ public class ScoreService {
 
     @Autowired
     ScoreRepository scoreRepository;
+
     public List<ScoreModel> obtener(){
         return scoreRepository.findAll();
     }
+
     public void crear(ScoreModel score){
-        if(!scoreRepository.existsById(score.getId())){
+        if(!scoreRepository.existsById(score.getIdScore())){
             scoreRepository.save(score);
         }
-
     }
+
 }

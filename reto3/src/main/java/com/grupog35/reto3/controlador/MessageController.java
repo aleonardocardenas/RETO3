@@ -1,20 +1,28 @@
 package com.grupog35.reto3.controlador;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.grupog35.reto3.model.MessageModel;
+import com.grupog35.reto3.service.MessageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/Message")
 public class MessageController {
+
+    @Autowired
+    MessageService messageService;
+
     @GetMapping("/all")
-    public void obtenerGamas(){
-
+    public List<MessageModel> obtener(){
+        return messageService.obtener();
     }
-    //Todo: Agregar el body al post
-    @PostMapping("/save")
-    public void crearGamas(){
 
+    @PostMapping("/save")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void crear(@RequestBody MessageModel message){
+        messageService.crear(message);
     }
 }

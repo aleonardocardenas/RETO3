@@ -14,13 +14,15 @@ public class ReservationService {
 
     @Autowired
     ReservationRepository reservationRepository;
+
     public List<ReservationModel> obtener(){
         return reservationRepository.findAll();
     }
-    public void crear(ReservationModel repository){
-        if(!reservationRepository.existsById(repository.getId())){
-            reservationRepository.save(repository);
-        }
 
+    public void crear(ReservationModel reservation){
+        if(!reservationRepository.existsById(reservation.getIdReservation())){
+            reservationRepository.save(reservation);
+        }
     }
+
 }

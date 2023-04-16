@@ -1,5 +1,6 @@
 package com.grupog35.reto3.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,19 +16,27 @@ import java.util.Date;
 public class ReservationModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id")
+    private int idReservation;
     @Column(name = "start_date")
     private Date startDate;
     @Column(name = "devolution_date")
-    private Date devolutiontDate;
+    private Date devolutionDate;
 
+    private String status = "created";
+    @ManyToOne
+    @JoinColumn(name = "id_car", nullable = false)
+    @JsonIgnoreProperties({"reservations"})
+    private CarModel car;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_client", nullable = false)
+    @JsonIgnoreProperties({"reservations","messages"})
     private ClientModel client;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_car", nullable = false)
-    private CarModel car;
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "id_score", unique = true)
+    private ScoreModel score;
+
 
 }
