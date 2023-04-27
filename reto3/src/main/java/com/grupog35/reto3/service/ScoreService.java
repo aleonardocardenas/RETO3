@@ -1,13 +1,13 @@
 package com.grupog35.reto3.service;
 
-import com.grupog35.reto3.model.ReservationModel;
+import com.grupog35.reto3.dbo.ScoreDbo;
 import com.grupog35.reto3.model.ScoreModel;
-import com.grupog35.reto3.repository.ReservationRepository;
 import com.grupog35.reto3.repository.ScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ScoreService {
@@ -25,4 +25,19 @@ public class ScoreService {
         }
     }
 
+    public void eliminar(int id){
+        scoreRepository.deleteById(id);
+    }
+
+    public void actualizar(ScoreDbo scoreDbo){
+        if(scoreRepository.existsById(scoreDbo.getIdScore())){
+            ScoreModel score = scoreRepository.findById(scoreDbo.getIdScore()).get();
+            score.setScore(scoreDbo.getScore());
+            scoreRepository.save(score);
+        }
+    }
+
+    public Optional<ScoreModel> obtenerPorId(int id) {
+        return scoreRepository.findById(id);
+    }
 }

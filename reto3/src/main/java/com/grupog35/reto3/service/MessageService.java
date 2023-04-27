@@ -1,13 +1,13 @@
 package com.grupog35.reto3.service;
 
-import com.grupog35.reto3.model.GamaModel;
+import com.grupog35.reto3.dbo.MessageDbo;
 import com.grupog35.reto3.model.MessageModel;
-import com.grupog35.reto3.repository.GamaRepository;
 import com.grupog35.reto3.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MessageService {
@@ -25,4 +25,19 @@ public class MessageService {
         }
     }
 
+    public void eliminar(int id){
+        messageRepository.deleteById(id);
+    }
+
+    public void actualizar(MessageDbo messageDbo) {
+        if(messageRepository.existsById(messageDbo.getIdMessage())){
+            MessageModel message = messageRepository.findById(messageDbo.getIdMessage()).get();
+            message.setMessageText(messageDbo.getMessageText());
+            messageRepository.save(message);
+        }
+    }
+
+    public Optional<MessageModel> obtenerPorId(int id) {
+        return messageRepository.findById(id);
+    }
 }

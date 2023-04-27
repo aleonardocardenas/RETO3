@@ -6,13 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "Messages")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MessageModel {
+public class MessageModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -21,12 +22,12 @@ public class MessageModel {
     private String messageText;
 
     @ManyToOne
-    @JoinColumn(name = "id_car", nullable = false)
+    @JoinColumn(name = "id_car")
     @JsonIgnoreProperties({"messages","reservations"})
     private CarModel car;
 
     @ManyToOne
-    @JoinColumn(name = "id_client", nullable = false)
+    @JoinColumn(name = "id_client")
     @JsonIgnoreProperties({"messages","reservations"})
     private ClientModel client;
 

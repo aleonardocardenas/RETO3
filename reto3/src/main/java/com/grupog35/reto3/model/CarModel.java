@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class CarModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +29,7 @@ public class CarModel {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "id_gama", nullable = false)
+    @JoinColumn(name = "id_gama")
     @JsonIgnoreProperties({"cars"})
     private GamaModel gama;
 
